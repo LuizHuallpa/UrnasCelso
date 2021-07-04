@@ -73,15 +73,18 @@ void Incluir(void) {
     }
     fclose(arq); //fecha o arquivo Voto.txt
 }
-void bubble_sort(int * vetor, int n ) {
-    int k, j, aux;
-	char *aux_char;
+void bubble_sort(int * vetor, int n, int*vet_cand ) {
+    int k, j, aux,aux_cand;
     for (k = 1; k < n; k++) {
         for (j = 0; j < n - k; j++) {
             if (vetor[j] > vetor[j + 1]) {
                 aux = vetor[j];
                 vetor[j] = vetor[j + 1];
                 vetor[j+1] = aux;
+                
+                aux_cand = vet_cand[j];
+                vet_cand[j] = vet_cand[j + 1];
+                vet_cand[j+1] = aux_cand;
             }
         }
     }
@@ -149,9 +152,8 @@ void Listar(void) {
         exit(1); //caso esse erro ocorra este comando encerra o programa
     }
 
-    int candidatos[5] = {
-        0
-    };
+    int candidatos[5] = {0};
+    int candidatos_[5] = {1,2,3,4,5};
     int total = 0;
     int cnt = 0;
     while (fread( & max[cnt], sizeof(votos), 1, arq) == 1) {
@@ -161,18 +163,18 @@ void Listar(void) {
     }
     printf("\n");
     i = 0;
-    char *cand[] = {"Candidato 1","Candidato 2","Candidato 3","Candidato 4","Candidato 5"};
+    
     
     for (i = 0; i <5; i++) {
         double percent = (candidatos[i] * 100) / total;
-        printf("%s - %d votos %.2f%% \n", cand[i], candidatos[i], percent);
+        printf("Candidato %d - %d votos %.2f%% \n",candidatos_[i], candidatos[i], percent);
     }
     
     printf("\n");
-    bubble_sort(candidatos, 5);
+    bubble_sort(candidatos, 5,candidatos_);
     for (i = 0; i <5; i++) {
         double percent = (candidatos[i] * 100) / total;
-        printf("Candidato %d - %d votos %.2f%% \n", i+1, candidatos[i], percent);
+        printf("Candidato %d - %d votos %.2f%% \n", candidatos_[i], candidatos[i], percent);
     }
     system("pause");
 }
