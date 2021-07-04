@@ -121,9 +121,8 @@ void finaliza() {
         getch(); //espera que o usuário pressione uma tecla
         exit(1); //caso esse erro ocorra este comando encerra o programa
     }
-    int candidatos[5] = {
-        0
-    };
+	    int candidatos[5] = {0};
+    int candidatos_[5] = {1,2,3,4,5};
     int total = 0;
     int cnt = 0;
     while (fread( & max[cnt], sizeof(votos), 1, arq) == 1) {
@@ -134,10 +133,17 @@ void finaliza() {
     }
     printf("\n");
     i = 0;
-    for (i = 0; i < 5; i++) {
+    
+     bubble_sort(candidatos, 5,candidatos_);
+    for (i = 0; i <5; i++) {
         double percent = (candidatos[i] * 100) / total;
-        printf("Candidato %d - %d votos %.2f%% \n", i, candidatos[i], percent);
+        printf("Candidato %d - %d votos %.2f%% \n", candidatos_[i], candidatos[i], percent);
     }
+     double percent1 = (candidatos[4] * 100) / total;
+     double percent2 = (candidatos[3] * 100) / total;
+    printf("\n\n|||||||Vencedor Candidato %d - %d votos %.2f%%||||||| \n", candidatos_[4], candidatos[4], percent1 );
+      printf("|||||||VICE Candidato %d - %d votos %.2f%%||||||| \n", candidatos_[3], candidatos[3], percent2 );
+    system("pause");
     Formata();
 }
 
@@ -195,8 +201,8 @@ void menu(void) {
             Listar();
             break;
         case '3':
-           // finaliza();
-           printf("por enquanto n");
+            finaliza();
+          // printf("por enquanto n");
             break;
         default:
             printf("\a Digite uma opção valida\n");
