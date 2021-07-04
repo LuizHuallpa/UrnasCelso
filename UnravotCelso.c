@@ -81,7 +81,7 @@ void bubble_sort(int * vetor, int n ) {
             if (vetor[j] > vetor[j + 1]) {
                 aux = vetor[j];
                 vetor[j] = vetor[j + 1];
-                vetor[j] = aux;
+                vetor[j+1] = aux;
             }
         }
     }
